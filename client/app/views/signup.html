@@ -12,18 +12,18 @@
 
     <!-- Text input-->
     <div class="form-group">
-      <label class="col-md-4 control-label" for="firstname">First Name</label>  
+      <label class="col-md-4 control-label" for="first_name">First Name</label>  
       <div class="col-md-5">
-      <input id="firstname" name="firstname" ng-model="signup.user.firstname" type="text" placeholder="Cole" class="form-control input-md">
+      <input id="first_name" name="first_name" ng-model="signup.user.first_name" type="text" placeholder="Cole" class="form-control input-md">
         
       </div>
     </div>
 
     <!-- Text input-->
     <div class="form-group">
-      <label class="col-md-4 control-label" for="lastname">Last Name</label>  
+      <label class="col-md-4 control-label" for="last_name">Last Name</label>  
       <div class="col-md-5">
-      <input id="lastname" name="lastname" ng-model="signup.user.lastname" type="text" placeholder="Morrison" class="form-control input-md">
+      <input id="last_name" name="last_name" ng-model="signup.user.last_name" type="text" placeholder="Morrison" class="form-control input-md">
         
       </div>
     </div>
@@ -32,13 +32,16 @@
     <div class="form-group">
       <label class="col-md-4 control-label" for="email">Email</label>  
       <div class="col-md-5">
-      <input id="email" name="email" ng-model="signup.user.email" type="text" placeholder="me@jcolemorrison.com" class="form-control input-md">
+      <input id="email" name="email" ng-model="signup.user.local.email" type="text" placeholder="me@jcolemorrison.com" class="form-control input-md">
         
       </div>
     </div>
 
     <!-- Password input-->
     <div class="form-group">
+      <div class="col-md-offset-4 col-md-5">
+        <p>Password must be 8 characters or longer</p>
+      </div>
       <label class="col-md-4 control-label" for="password1">Password</label>
       <div class="col-md-5">
         <input id="password1" name="password1" ng-model="signup.user.password1" type="password" placeholder="" class="form-control input-md">

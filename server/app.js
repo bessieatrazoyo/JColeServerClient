@@ -1,9 +1,11 @@
 var express = require('express');
+var passport = require('passport');
 var path = require('path');
-var favicon = require('serve-favicon');
+//var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var session = require('express-session');
 
 var routes = require('./router/index');
 var users = require('./router/routes/users');
@@ -17,6 +19,10 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
+// required for passport
+app.use(session({ secret: 'putthisintheserverenvvar' }));
+app.use(passport.initialize());
+app.use(passport.session());
 /**
  * Development Settings
  */
@@ -47,6 +53,10 @@ if (app.get('env') === 'development') {
             error: err
         });
     });
+    /*
+    app.listen(3000, function () {
+      console.log('Example app listening on port 3000!');
+      });*/
 }
 
 /**
@@ -66,6 +76,11 @@ if (app.get('env') === 'production') {
             error: {}
         });
     });
+    /*
+    app.listen(3000, function () {
+      console.log('Listening at port 3000');
+      });*/
+    
 }
 
 module.exports = app;

@@ -22,22 +22,37 @@ angular.module('clientApp') // make sure this is set to whatever it is in your c
 
     // This is our method that will post to our server.
     signup.submit = function () {
+    console.log('I got to sign up');
       
+    console.log('objects = ' + JSON.stringify(user));
       // make sure all fields are filled out...
       // aren't you glad you're not typing out
       // $scope.signup.user.firstname everytime now??
       if (
-        !user.firstname ||
-        !user.lastname ||
-        !user.email ||
+        !user.first_name ||
+        !user.last_name ||
+        !user.local.email ||
         !user.password1 ||
         !user.password2
       ) {
+        console.log('All the fields aren\'t filled out');
+        console.log('user.first_name = ' + user.first_name);
+        console.log('user.last_name = ' + user.last_name);
+        console.log('user.email = ' + user.local.email);
+        console.log('user.password1 = ' + user.password1);
+        console.log('user.password2 = ' + user.password2);
         return false;
       }
 
       // make sure the passwords match match
       if (user.password1 !== user.password2) {
+        console.log('The passwords aren\'t the same');
+        return false;
+      }
+
+      // make sure password is longer than 8 characters
+      if (user.password1.length < 8) {
+        console.log('The password is only ' + user.password1.length + ' long.');
         return false;
       }
 
