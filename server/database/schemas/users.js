@@ -11,7 +11,6 @@ var Schema = mongoose.Schema;
  * We need to make each dealer have a unique email address
  */
 var userSchema = new Schema({
-    _id              : String,
     first_name       : String,
     last_name        : String,
     address_1        : String,
@@ -87,6 +86,7 @@ var userSchema = new Schema({
 
 // A method that's called every time a user document is saved..
 userSchema.pre('save', function (next) {
+    console.log('module:  server/database/schemas/users.js');
     console.log('userSchema.pre save 1');
 
     var user = this;
