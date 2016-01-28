@@ -4,6 +4,8 @@
 var mongoose = require('mongoose');
 var bcrypt = require('bcrypt');
 var Schema = mongoose.Schema;
+var crypto = require('crypto');
+var jwt = require('jsonwebtoken');
 
 // Define the User Schema
 /*
@@ -39,6 +41,8 @@ var userSchema = new Schema({
         trim         : true,
         unique       : true
       },
+        hash         : String,
+        salt         : String,
         password     : String
     },
     facebook         : {
@@ -84,8 +88,40 @@ var userSchema = new Schema({
 
 });
 
+// From Thinkster .setPassword method
+// NOTE:  I'm saving hash and salt inside local
+userSchema.methods.setPassword = function (password) {
+  this.local.salt = crypto.randomBytes (16).toString('hex');
+  this.local.hash = crypto.pbkdf2Sync (password,
+                                       this.local.salt, 1000, 64).toString('hex');
+};
+
+// From Thinkster .validPassword method
+userSchema.methods.validPassword = function (password) {
+  var hash = crypto.pbkdf2Sync (password,
+                                this.local.salt, 1000, 64).toString('hex');
+
+  return this.local.hash === hash;
+};
+
+// From Thinkster .generateJWT
+userSchema.methods.generateJWT = function () {
+
+  // set expiration to 60 days
+  var today = new Date();
+  var exp = new Date(today);
+  exp.setDate (today.getDate() + 60);
+
+  return jwt.sign ({
+    _id: this._id,
+    first_name: this.first_name,
+    exp: parseInt(exp.getTime() / 1000)
+    },
+    'SECRET');
+};
+
 // A method that's called every time a user document is saved..
-userSchema.pre('save', function (next) {
+/*userSchema.pre('save', function (next) {
     console.log('module:  server/database/schemas/users.js');
     console.log('userSchema.pre save 1');
 
@@ -138,7 +174,7 @@ userSchema.methods.authenticate = function(password) {
     return isMatch;
   });
 }
-
+*/
 // The primary user model
 var User = mongoose.model('User', userSchema);
 
