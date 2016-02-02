@@ -7,7 +7,6 @@ var moment = require('moment');
 var _ = require('underscore');
 var color = require('cli-color');
 var db = require('../../database');
-//var ObjectID = require('mongodb').ObjectID;
 var Users = db.users;
 var passport = require('passport');
 

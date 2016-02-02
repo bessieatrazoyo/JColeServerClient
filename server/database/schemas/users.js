@@ -36,14 +36,9 @@ var userSchema = new Schema({
         default      : Date.now
     },
     local            : {
-      email          : { 
-        type         : String, // this is the same as username
-        trim         : true,
-        unique       : true
-      },
-        hash         : String,
-        salt         : String,
-        password     : String
+      email          : String, // this is the same as username
+      hash           : String,
+      salt           : String
     },
     facebook         : {
         id           : String,
@@ -115,6 +110,7 @@ userSchema.methods.generateJWT = function () {
   return jwt.sign ({
     _id: this._id,
     first_name: this.first_name,
+    last_name: this.last_name,
     exp: parseInt(exp.getTime() / 1000)
     },
     'SECRET');

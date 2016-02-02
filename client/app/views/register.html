@@ -1,1 +1,76 @@
-<p>This is the register view.</p>
+<div class="register-container">
+  <div class="col-md-12">
+    <h3 class="register-header">Register as a New User</h3>
+    <hr>
+    <br>
+  </div>
+
+  <div ng-show="error" class="alert alert-danger row">
+    <span>{{ error.message }}</span>
+  </div>
+  <div class="register-form">
+    
+    <form ng-submit="register()" class="form-horizontal">
+
+
+    <!-- Text input-->
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="first_name">First Name</label>  
+      <div class="col-md-5">
+      <input id="first_name" name="first_name" ng-model="user.first_name" type="text" placeholder="enter first name" class="form-control input-md">
+        
+      </div>
+    </div>
+
+    <!-- Text input-->
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="last_name">Last Name</label>  
+      <div class="col-md-5">
+      <input id="last_name" name="last_name" ng-model="user.last_name" type="text" placeholder="enter last name" class="form-control input-md">
+        
+      </div>
+    </div>
+
+    <!-- Text input-->
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="email">Email</label>  
+      <div class="col-md-5">
+      <input id="email" name="email" ng-model="user.local.email" type="text" placeholder="yourname@gmail.com" class="form-control input-md">
+        
+      </div>
+    </div>
+
+    <!-- Password input-->
+    <div class="form-group">
+      <div class="col-md-offset-4 col-md-5">
+        <p>Password must be 8 characters or longer</p>
+      </div>
+      <label class="col-md-4 control-label" for="password1">Password</label>
+      <div class="col-md-5">
+        <input id="password1" name="password1" ng-model="user.password1" type="password" placeholder="" class="form-control input-md">
+        
+      </div>
+    </div>
+
+    <!-- Password input-->
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="password2">Retype Password</label>
+      <div class="col-md-5">
+        <input id="password2" name="password2" ng-model="user.password2" type="password" placeholder="" class="form-control input-md">
+        
+      </div>
+    </div>
+
+    <!-- Button -->
+    <button type="submit" class="btn btn-primary">Register</button>
+<!--    <div class="form-group">
+      <label class="col-md-4 control-label" for="register"></label>
+      <div class="col-md-5">
+        <button ng-click="register.submit()" id="register" name="register" class="btn btn-success btn-block">Signup!</button>
+      </div>
+    </div>
+-->
+    </form>
+  </div>
+
+</div>

@@ -4,9 +4,9 @@ var db = require('../../database');
 var Users = db.users;
 
 router.post('/', function (req, res, next) {
-  console.log('post /register body: ' +req.body);
+  console.log('req.body = ' + JSON.stringify(req.body));
 
-  if (!req.body.email || !req.body.password1) {
+  if (!req.body.local.email || !req.body.password1) {
     return res.status(400).json({message:'Please fill out email and password fields'});
   }
 
@@ -14,10 +14,11 @@ router.post('/', function (req, res, next) {
       first_name: req.body.first_name,
       last_name: req.body.last_name,
       local: {
-        email: req.body.email,
-        password: req.body.password1
+        email: req.body.local.email
       }
   });
+
+  newUser.setPassword(req.body.password1);
 
   newUser.save(function (err) {
     if (err) {

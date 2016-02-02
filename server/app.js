@@ -8,7 +8,7 @@ var bodyParser = require('body-parser');
 var session = require('express-session');
 
 var routes = require('./router/index');
-var users = require('./router/routes/users');
+//var users = require('./router/routes/users');
 
 var app = express();
 
@@ -20,7 +20,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 // required for passport
-app.use(session({ secret: 'putthisintheserverenvvar' }));
+//app.use(session({ secret: 'putthisintheserverenvvar' }));
 app.use(passport.initialize());
 app.use(passport.session());
 /**
