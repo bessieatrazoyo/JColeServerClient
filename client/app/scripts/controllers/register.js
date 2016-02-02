@@ -15,15 +15,15 @@ angular.module('clientApp') // make sure this is set to whatever it is in your c
     function ($scope, $state, auth) {
       $scope.user = {};
 
-console.log('#1');
+//console.log('#1');
       $scope.register = function () {
-console.log('#2');
+//console.log('#2');
 console.log('$scope.user = ' + JSON.stringify($scope.user));
         auth.register ($scope.user).error (function (error) {
-console.log('#3');
+//console.log('#3');
           $scope.error = error;
         }).then (function () {
-console.log('#4');
+//console.log('#4');
           $state.go ('home');
         });
       };
@@ -45,27 +45,27 @@ console.log('#8');
     var auth = {};
 
     auth.saveToken = function (token) {
-console.log('#9');
+//console.log('#9');
       $window.localStorage['zakhelp-token'] = token;
     };
 
     auth.getToken = function () {
-console.log('#10');
+//console.log('#10');
       return $window.localStorage['zakhelp-token'];
     };
 
     auth.isLoggedIn = function () {
-console.log('#11');
+//console.log('#11');
       var token = auth.getToken();
 
       if (token) {
-console.log('#12');
+//console.log('#12');
         var payload = JSON.parse ($window.atob (token.split ('.')[1]));
 
         return payload.exp > Date.now() / 1000;
       }
       else {
-console.log('#13');
+//console.log('#13');
         return false;
       }
     };
@@ -83,10 +83,10 @@ console.log('#16');
     };
 
     auth.register = function (user) {
-console.log('#17');
-console.log('user = ' + JSON.stringify(user));
+//console.log('#17');
+//console.log('user = ' + JSON.stringify(user));
       return $http.post ('/register', user).success (function (data) {
-console.log('#18');
+//console.log('#18');
         auth.saveToken (data.token);
       });
     };
@@ -100,10 +100,10 @@ console.log('#21');
     };
 
     auth.logOut = function () {
-console.log('#23');
+//console.log('#23');
       $window.localStorage.removeItem('zakhelp-token');
     };
 
-console.log('#24');
+//console.log('#24');
     return auth;
   }]);

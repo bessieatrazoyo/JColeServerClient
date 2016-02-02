@@ -8,7 +8,9 @@ var bodyParser = require('body-parser');
 var session = require('express-session');
 
 var routes = require('./router/index');
-//var users = require('./router/routes/users');
+var db = require('./database');
+var Users = db.users;
+require('./config/passport');
 
 var app = express();
 
@@ -21,8 +23,7 @@ app.use(cookieParser());
 
 // required for passport
 //app.use(session({ secret: 'putthisintheserverenvvar' }));
-app.use(passport.initialize());
-app.use(passport.session());
+//app.use(passport.session());
 /**
  * Development Settings
  */
@@ -32,6 +33,7 @@ if (app.get('env') === 'development') {
     // This covers serving up the index page
     app.use(express.static(path.join(__dirname, '../client/.tmp')));
     app.use(express.static(path.join(__dirname, '../client/app')));
+    app.use(passport.initialize());
 
     /**
      * Routes

@@ -1,9 +1,6 @@
 /**
  * The Index of Routes
  */
-passport = require('../config/passport');
-
-var passport = passport();
 
 module.exports = function (app) {
 
