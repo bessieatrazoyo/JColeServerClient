@@ -36,26 +36,29 @@ var userSchema = new Schema({
         default      : Date.now
     },
     local            : {
-      email          : String, // this is the same as username
-      hash           : String,
+      email          : String,/*{ 
+        type         : String, // this is the same as username
+        trim         : true
+      },*/
+      password       : String,
       salt           : String
-    },
+      },
     facebook         : {
         id           : String,
         token        : String,
-        email        : String,
+//        email        : String,
         name         : String
     },
     twitter          : {
         id           : String,
         token        : String,
         displayName  : String,
-        username     : String
+//        username     : String
     },
     google           : {
         id           : String,
         token        : String,
-        email        : String,
+//        email        : String,
         name         : String
     },
 /* If the user updates their profile, this document is created.
@@ -83,12 +86,15 @@ var userSchema = new Schema({
 
 });
 
+
 // From Thinkster .setPassword method
 // NOTE:  I'm saving hash and salt inside local
 userSchema.methods.setPassword = function (password) {
+console.log('set password before. this = ' + JSON.stringify(this));
   this.local.salt = crypto.randomBytes (16).toString('hex');
-  this.local.hash = crypto.pbkdf2Sync (password,
+  this.local.password = crypto.pbkdf2Sync (password,
                                        this.local.salt, 1000, 64).toString('hex');
+console.log('set password after. this = ' + JSON.stringify(this));
 };
 
 // From Thinkster .validPassword method
@@ -96,8 +102,15 @@ userSchema.methods.validPassword = function (password) {
   var hash = crypto.pbkdf2Sync (password,
                                 this.local.salt, 1000, 64).toString('hex');
 
-  return this.local.hash === hash;
+  return this.local.password === hash;
 };
+
+// From ScotchIO -- generateHash method
+userSchema.methods.generateHash = function (password) {
+  return crypto.pbkdf2Sync (password,
+                            this.local.salt, 1000, 64).toString('hex');
+};
+  
 
 // From Thinkster .generateJWT
 userSchema.methods.generateJWT = function () {
@@ -171,6 +184,8 @@ userSchema.methods.authenticate = function(password) {
   });
 }
 */
+
+
 // The primary user model
 var User = mongoose.model('User', userSchema);
 
