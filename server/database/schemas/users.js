@@ -47,7 +47,8 @@ var userSchema = new Schema({
         id           : String,
         token        : String,
 //        email        : String,
-        name         : String
+        first_name   : String,
+        last_name    : String
     },
     twitter          : {
         id           : String,
@@ -124,6 +125,24 @@ userSchema.methods.generateJWT = function () {
     _id: this._id,
     first_name: this.first_name,
     last_name: this.last_name,
+    exp: parseInt(exp.getTime() / 1000)
+    },
+    'SECRET');
+};
+
+// From Thinkster .generateJWT
+// Need to refactor
+userSchema.methods.generateFacebookJWT = function () {
+
+  // set expiration to 60 days
+  var today = new Date();
+  var exp = new Date(today);
+  exp.setDate (today.getDate() + 60);
+
+  return jwt.sign ({
+    _id: this._id,
+    first_name: this.facebook.first_name,
+    last_name: this.facebook.last_name,
     exp: parseInt(exp.getTime() / 1000)
     },
     'SECRET');

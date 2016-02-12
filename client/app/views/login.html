@@ -35,6 +35,10 @@
 
     <!-- Button -->
     <button type="submit" class="btn btn-primary">Login</button>
+    <input type="button" ng-click="twitterLogIn()" class="btn btn-info" value="twitter" />
+    <input type="button" ng-click="facebookLogIn()" class="btn btn-info" value="facebook" />
+    <a href="/auth/twitter" target="_self" class="btn btn-primary"><span class="fa fa-twitter"></span>Twitter</a>
+    <a href="/auth/facebook" target="_self" class="btn btn-primary"><span class="fa fa-facebook"></span>Facebook</a>
     <p>Need an account? <a href="#/register">Register</a></p>
     </form>
   </div>

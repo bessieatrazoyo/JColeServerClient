@@ -40,6 +40,7 @@ angular
           templateUrl: 'views/login.html',
           controller: 'AuthCtrl',
           onEnter: ['$state', 'auth', function ($state, auth) {
+console.log("onEnter");
             if (auth.isLoggedIn ()) {
               $state.go ('home');
             }
@@ -50,11 +51,7 @@ angular
           templateUrl: 'views/register.html',
           controller: 'AuthCtrl',
           onEnter: ['$state', 'auth', function ($state, auth) {
-console.log('#26');
-console.log('$state = ' + $state);
-console.log('auth = ' + auth);
             if (auth.isLoggedIn()) {
-console.log('#27');
               $state.go ('home');
             }
           }]
