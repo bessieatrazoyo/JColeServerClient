@@ -4,12 +4,16 @@ data/
 # node_modules
 client/node_modules/
 server/node_modules/
+script/node_modules/
 
 # Logs
 logs
 *.log
 client/npm-debug.log*
 server/npm-debug.log*
+
+# data
+scripts/ZakContracts.txt
 
 # Runtime data
 pids
