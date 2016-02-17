@@ -1,8 +1,9 @@
 /**
  * Our Database Interface
  */
-var mongoose = require('mongoose');
-var UserModel = require('./schemas/users');
+var mongoose        = require('mongoose');
+var UserModel       = require('./schemas/users');
+var UtilityModel    = require('./schemas/utility');
 
 
 // Connections
@@ -14,6 +15,7 @@ var usedDb;
 if (process.env.NODE_ENV === 'development') {
     // set our database to the development one
     usedDb = developmentDb;
+console.log('usedDb = ' + usedDb);
     // connect to it via mongoose
     mongoose.connect(usedDb);
 }
@@ -35,6 +37,16 @@ db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function callback () {
   console.log('Database Connection Successfully Opened at ' + usedDb);
 });
+/*
+UtilityModel.update (
+  { name : 'unique' },
+  {
+    $set: { name: 'unique' },
+    $setOnInsert: { user_email_counter : 1 }
+  },
+  { upsert: true }
+);
+*/
 
 exports.users = UserModel;
-
+exports.utility = UtilityModel;

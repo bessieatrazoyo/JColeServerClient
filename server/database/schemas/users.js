@@ -7,11 +7,18 @@ var Schema = mongoose.Schema;
 var crypto = require('crypto');
 var jwt = require('jsonwebtoken');
 
+const ADMIN_ROLE          = 0b1000;
+const DEALER_ROLE         = 0b0100;
+const MMP_ROLE            = 0b0010;
+const VEHICLE_OWNER_ROLE  = 0b0001;
+
+
 // Define the User Schema
 /*
  * _id is going to be their email address.
  * We need to make each dealer have a unique email address
  */
+
 var userSchema = new Schema({
     first_name       : String,
     last_name        : String,
@@ -21,8 +28,7 @@ var userSchema = new Schema({
     state            : String,
     zip_code         : String,
     phone            : String,
-    user_role        : Number, // 0/1/2/3 -> 
-                               // vehicle owner / dealership / mpp / admin
+    user_role        : Number, // See _ROLE const above
     updated          : {
         type         : Date,
         default      : Date.now
@@ -32,21 +38,17 @@ var userSchema = new Schema({
         default      : Date.now
     },
     last_login       : {
-        type         : Date,
-        default      : Date.now
+        type         : Date
     },
     local            : {
-      email          : String,/*{ 
-        type         : String, // this is the same as username
-        trim         : true
-      },*/
+      email          : String,
       password       : String,
       salt           : String
       },
     facebook         : {
         id           : String,
         token        : String,
-//        email        : String,
+        email        : String,
         first_name   : String,
         last_name    : String
     },
@@ -54,12 +56,12 @@ var userSchema = new Schema({
         id           : String,
         token        : String,
         displayName  : String,
-//        username     : String
+        username     : String
     },
     google           : {
         id           : String,
         token        : String,
-//        email        : String,
+        email        : String,
         name         : String
     },
 /* If the user updates their profile, this document is created.

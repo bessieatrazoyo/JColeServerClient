@@ -3,6 +3,7 @@
  */
 var db                = require('../database');
 var Users             = db.users;
+var trail             = require('./trail');
 
 module.exports = function (app, passport) {
   var jwt = require('express-jwt');
@@ -11,22 +12,7 @@ module.exports = function (app, passport) {
                 userProperty  : 'payload'
               });
 
-  app.post('/login', 
-                       
-  function (req, res, next) {
-    passport.authenticate ('local-login', function (err, user, info) {
-      if (err) {
-        return next(err);
-      }
-
-      if (user) {
-        return res.json({token: user.generateJWT()});
-      }
-      else {
-        return res.status(401).json(info);
-      }
-    })(req, res, next);
-  });
+  app.post('/login', trail);
 
   /*
   app.get('/auth/twitter',
